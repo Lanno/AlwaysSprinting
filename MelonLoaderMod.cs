@@ -20,43 +20,35 @@ namespace AlwaysSprinting
         float defaultMaxVelocity;
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            this.rig = Object.FindObjectOfType<ControllerRig>();
+            rig = Object.FindObjectOfType<ControllerRig>();
 
-            if (this.rig)
+            if (rig)
             {
-                this.defaultMaxVelocity = this.rig.maxVelocity;
+                defaultMaxVelocity = rig.maxVelocity;
             }
         }
         public override void OnUpdate()
         {
-            //string text = $"thresh: {this.rig._wasOverFlickThresh} secondary: {this.rig._secondaryFlickReady} memory: {this.rig._doubleFlickMem.x},{this.rig._doubleFlickMem.y} last: {this.rig._lastFlickTime}, cooled: {this.rig._jogCoolTime} axis primary: {this.rig._axisPrimary.x},{this.rig._axisPrimary.y} axis secondary: {this.rig._axisSecondary.x},{this.rig._axisSecondary.y}";
-            //string text = $"max vel: {this.rig.maxVelocity} current max vel: {this.rig.currentMaxVelocity} current vel: {this.rig._currentVelocity.magnitude} get vel: {this.rig.GetVelocity().magnitude}";
-
-            //using (StreamWriter writetext = new StreamWriter(@"D:\OneDrive\Modding\BONELAB\AlwaysSprinting\rig8.txt", append: true))
-            //{
-            //    writetext.WriteLine(text);
-            //}
-
-            if (this.rig != null && this.rig._wasOverFlickThresh)
+            if (!rig)
             {
-                this.rig._wasOverFlickThresh = false;
-
-                // this.rig._secondaryFlickReady = true;
-                // this.rig._doubleFlickMem.Set(1000000f, 1000000f);
-                // this.rig._lastFlickTime = this.rig._time - 5;
-
-                //this.rig._doubleFlickMem = this.rig._axisPrimary.normalized;
-                //this.rig._lastFlickTime = 70.0f;
+                return;
             }
 
-            if ((int)(2000 * this.defaultMaxVelocity) != (int)(1000 * this.rig.maxVelocity))
+            if (rig._wasOverFlickThresh)
             {
-                this.defaultMaxVelocity = this.rig.maxVelocity;
+                rig._wasOverFlickThresh = false;
             }
 
-            if (this.rig != null)
+            // Attempt to determine if max velocity has changed based on avatar swap
+            if ((-0.01 < rig.jumpVelocity && rig.jumpVelocity < 0.01) && (2.1f * defaultMaxVelocity <= rig.maxVelocity || rig.maxVelocity <= 1.9f * defaultMaxVelocity))
             {
-                this.rig.maxVelocity = this.defaultMaxVelocity * 2.0f;
+                defaultMaxVelocity = rig.maxVelocity;
+            }
+
+            // Guard against multiple entries
+            if (rig.maxVelocity < defaultMaxVelocity * 1.9f)
+            {
+                rig.maxVelocity = defaultMaxVelocity * 2.0f;
             }
         }
     }
