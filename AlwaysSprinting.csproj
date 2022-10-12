@@ -79,6 +79,7 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>G:\Steam\steamapps\common\BONELAB\MelonLoader\Dependencies\Il2CppAssemblyGenerator\UnityDependencies\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MelonLoaderMod.cs" />
