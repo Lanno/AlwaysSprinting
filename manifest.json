@@ -1,0 +1,9 @@
+{
+  "name": "AlwaysSprinting",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/Lanno/AlwaysSprinting",
+  "description": "This mod will allow you to sprint without having to double tap the analog stick. Your speed will increase from walking to sprinting as you go from the deadzone to full-tilt.",
+  "dependencies": [
+    "LavaGang-MelonLoader-0.5.6"
+  ]
+}
