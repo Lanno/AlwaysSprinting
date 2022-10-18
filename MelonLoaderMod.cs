@@ -1,8 +1,6 @@
 ﻿using MelonLoader;
 using SLZ.Rig;
 using UnityEngine;
-using System.IO;
-using SLZ.VRMK;
 
 namespace AlwaysSprinting
 {
